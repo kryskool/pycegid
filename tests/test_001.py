@@ -79,11 +79,4 @@ class TestExport1(object):
         assert content[25:33] == '01011900', 'Default date for "Date arrete periodique" not found!'
         #assert len(content) == 148, 'Record length not valid (%d)' % len(content)
 
-    def test_SAT(self):
-        tra = ExportTra()
-        tra.setHeader('S5', 'CLI', 'JRL')
-        tra.addSAT('PROJ1', 'Projet1')
-        content = tra._content['lines'][0]
-        assert content[:3] == '***', 'Bad starting record!'
-
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

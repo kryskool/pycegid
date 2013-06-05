@@ -101,28 +101,28 @@ class ExportTra(object):
 
     def addSAT(self, code='', libelle='', axe='', table1='', table2='',
                      table3='', table4='', table5='', table6='', table7='',
-                     table8='', table9='', table10='', abrege='', sens=''):
+                     table8='', table9='', table10='', abrege='', sens='M'):
         """
         See documentation version 7 page 23/60 which describe "Section Analytique"
         """
         self._content['lines'].append(''.join([
-            self._zone_fixe,                        # Prefix (***)
-            'SAT',                                  # Identifiant
-            self._format(code, 17),                 # Code
-            self._format(libelle, 35),              # Libelle
-            self._format(axe, 3),                   # Axe
-            self._format(table1, 17),               # Table 1
-            self._format(table2, 17),               # Table 2
-            self._format(table3, 17),               # Table 3
-            self._format(table4, 17),               # Table 4
-            self._format(table5, 17),               # Table 5
-            self._format(table6, 17),               # Table 6
-            self._format(table7, 17),               # Table 7
-            self._format(table8, 17),               # Table 8
-            self._format(table9, 17),               # Table 9
-            self._format(table10, 17),              # Table 10
-            self._format(abrege, 17),               # Abrege
-            self._format(sens, 3),                  # Sens
+            self._zone_fixe,                   # Prefix (***)
+            'SAT',                             # Identifiant
+            self._mandatory(code, 17),            # Code
+            self._mandatory(libelle, 35),         # Libelle
+            self._mandatory(axe, 3),              # Axe
+            self._format(table1, 17),          # Table 1
+            self._format(table2, 17),          # Table 2
+            self._format(table3, 17),          # Table 3
+            self._format(table4, 17),          # Table 4
+            self._format(table5, 17),          # Table 5
+            self._format(table6, 17),          # Table 6
+            self._format(table7, 17),          # Table 7
+            self._format(table8, 17),          # Table 8
+            self._format(table9, 17),          # Table 9
+            self._format(table10, 17),         # Table 10
+            self._format(abrege, 17),          # Abrege
+            self._format(sens, 3),             # Sens
         ]))
 
     def render(self, filename=''):
