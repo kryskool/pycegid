@@ -127,9 +127,9 @@ class ExportTra(object):
         self._content['lines'].append(''.join([
             self._zone_fixe,                   # Prefix (***)
             'SAT',                             # Identifiant
-            self._mandatory(code, 17),            # Code
-            self._mandatory(libelle, 35),         # Libelle
-            self._mandatory(axe, 3),              # Axe
+            self._mandatory(code, 17),         # Code
+            self._mandatory(libelle, 35),      # Libelle
+            self._mandatory(axe, 3),           # Axe
             self._format(table1, 17),          # Table 1
             self._format(table2, 17),          # Table 2
             self._format(table3, 17),          # Table 3
