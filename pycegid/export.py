@@ -25,8 +25,12 @@ import time
 
 
 class CegidException(Exception):
-    pass
 
+    def __init__(self, msg='Empty Message'):
+        self.message = msg
+
+    def __str__(self):
+        return repr(self.message)
 
 class VersionNotFound(CegidException):
     pass
@@ -154,16 +158,16 @@ class ExportTra(object):
             echeance = self._default_date
 
         if type_compte not in ('X', 'A', 'H', '0'):
-            raise NotValidValue()
+            raise NotValidValue('"%s" value is not valid for "type de compte" field' % type_compte)
 
         if type_ecriture not in ('N', 'S', 'U', 'R'):
-            raise NotValidValue()
+            raise NotValidValue('"%s" value is not valid for "type_ecriture" field' % type_ecriture)
 
         if sens not in ('C', 'D'):
-            raise NotValidValue()
+            raise NotValidValue('"%s" value is not valid for "sens" field')
 
         if type_compte == 'A' and not axe:
-            raise MandatoryException()
+            raise MandatoryException('When "type_compte" = A, "axe" field is mandatory!')
 
         self._content['lines'].append(''.join([
             self._mandatory(journal, 3),         # Code Journal
