@@ -205,9 +205,9 @@ class ExportTra(object):
         if self._debug_header:
             content = self._debug_toolbar()
 
-        content += self._content['header']
+        content += self._content['header'] + '\r\n'
         for c in self._content['lines']:
-            content += c
+            content += c + '\r\n'
         return content
 
     def _debug_toolbar(self):
