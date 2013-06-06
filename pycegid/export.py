@@ -24,15 +24,26 @@
 import time
 
 
-class VersionNotFound(Exception):
+class CegidException(Exception):
     pass
 
 
-class HeaderNotFound(Exception):
+class VersionNotFound(CegidException):
     pass
 
 
-class MandatoryException(Exception):
+class HeaderNotFound(CegidException):
+    """When no header found in the streamout"""
+    pass
+
+
+class MandatoryException(CegidException):
+    """Raise when mandatory data is required"""
+    pass
+
+
+class NotValidValue(CegidException):
+    """Indicate check value is not in permit value"""
     pass
 
 
@@ -62,6 +73,10 @@ class ExportTra(object):
         """
         self._total = 0.0
         self._generate_date = time.strftime('%d%m%Y%H%M')
+        self._content = {
+            'header': '',
+            'lines': [],
+        }
 
     # TODO: add function to change date for the generate file
 
@@ -125,6 +140,56 @@ class ExportTra(object):
             self._format(sens, 3),             # Sens
         ]))
 
+    def addEcriture(self, journal='', date_mouvement=None, type_piece='', compte='', type_compte='',
+                          num_compte='', ref_interne='', libelle='', modepaie='', echeance='',
+                          sens='', montant1=0.0, type_ecriture='', numero_piece='', devise='',
+                          taux_dev='', code_montant='', montant2=0.0, montant3=0.0, etablissement='',
+                          axe='', numeche=''):
+        """Add move"""
+
+        if date_mouvement is None:
+            date_mouvement = self._generate_date[:8]
+
+        if not echeance:
+            echeance = self._default_date
+
+        if type_compte not in ('X', 'A', 'H', '0'):
+            raise NotValidValue()
+
+        if type_ecriture not in ('N', 'S', 'U', 'R'):
+            raise NotValidValue()
+
+        if sens not in ('C', 'D'):
+            raise NotValidValue()
+
+        if type_compte == 'A' and not axe:
+            raise MandatoryException()
+
+        self._content['lines'].append(''.join([
+            self._mandatory(journal, 3),         # Code Journal
+            self._mandatory(date_mouvement, 8),  # Date du mouvement
+            self._mandatory(type_piece, 2),      # Type de piece
+            self._mandatory(compte, 17),         # Compte general
+            self._format(type_piece, 1),         # Type de compte
+            self._format(num_compte, 17),        # numero compte ou section ana
+            self._format(ref_interne, 35),       # Reference interne
+            self._format(libelle, 35),           # Libelle
+            self._format(modepaie, 3),           # Mode paie
+            self._format(echeance, 8),           # Date echeance
+            self._format(sens, 1),               # Sens
+            self._number(montant1, 20, 2),       # Montant1
+            self._mandatory(type_ecriture, 1),   # Type ecriture
+            self._format(numero_piece, 8),       # Numero de piece
+            self._format(devise, 3),             # Devise
+            self._number(taux_dev, 10),          # Taux devise
+            self._mandatory(code_montant, 3),    # Code montant
+            self._number(montant2, 20, 2),       # Montant 2
+            self._number(montant3, 20, 2),       # Montant 3
+            self._format(etablissement, 3),      # Etablissement
+            self._format(axe, 2),                # Axe si type compte = 'A'
+            self._format(numeche, 2),            # Multi echeance
+        ]))
+
     def render(self, filename=''):
         """
         Generate the content, and store it in a file if specified
@@ -137,6 +202,8 @@ class ExportTra(object):
             content = self._debug_toolbar()
 
         content += self._content['header']
+        for c in self._content['lines']:
+            content += c
         return content
 
     def _debug_toolbar(self):
@@ -162,6 +229,13 @@ class ExportTra(object):
             return value.rjust(length, caract)[:length]
         return value.ljust(length, caract)[:length]
 
+    def _number(self, value, length, dec=2):
+        if value and isinstance(value, (int, str)):
+            value = float(value)
+        else:
+            return self._format(value, length)
+        return (('%.' + str(dec) + 'f') % value).replace('.', ',').rjust(length, '0')
+
     def _mandatory(self, value, length, rpad=False, caract=' '):
         """Check mandary field, if missing raise an error"""
         if not value:
@@ -186,7 +260,7 @@ class ExportTra(object):
             self._format(date_arrete, 8),           # date d'arrete periodique
             self._default_version,                  # Version du fichier
             self._format(num_dossier_cab, 5),       # Numero dossier cabinet
-            self._format(self._current_date, 12),   # TODO date et heure
+            self._format(self._current_date, 12),   # Date et heure
             self._format(utilisateur, 35),          # Utilisateur
             self._format(raison_sociale, 35),       # Raison sociale
             self._format(reprise, 4),               # Reprise
