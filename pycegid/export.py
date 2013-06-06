@@ -144,6 +144,88 @@ class ExportTra(object):
             self._format(sens, 3),             # Sens
         ]))
 
+    def addCAE(self, code='', libelle='', nature='', lettrable='', collectif='',
+                     ean='', table1='', table2='', table3='', table4='', table5='',
+                     table6='', table7='', table8='', table9='', table10='',
+                     adresse1='', adresse2='', adresse3='', code_postal='', ville='',
+                     domiciliation='', etablissement='', guichet='', cle='', pays='',
+                     libelle_abrege='', langue='', multidevise='', devise_tiers='-',
+                     telephone='', fax='', regime_tva='', mrg='', comment='', nif='',
+                     siret='', ape='', prenom='', ctc_service='', ctc_fonction='',
+                     ctc_telephone='', ctc_fax='', ctc_telex='', ctc_rva='',
+                     ctc_civilite='', ctc_principal='', forme_juridique='', rib_principal='',
+                     tva_encaissement='', payeur='', ispayeur='', avoir_rbt='', relance_rgt='',
+                     relance_traite='', confidentiel=''):
+        """
+        See documentation version 7 page 32/60 whick describe "Compte de tiers"
+        """
+        if nature not in ('AUC', 'AUD', 'CLI', 'DIV', 'FOU', 'SAL'):
+            raise NotValidValue('"%s" value is not valid for "nature" field' % nature)
+
+        if ispayeur and ispayeur not in ('X', '-'):
+            raise NotValidValue('"%s" value is not valid for "ispayeur" field' % ispayeur)
+
+        self._content['lines'].append(''.join([
+            self._zone_fixe,                   # Prefix (***)
+            'CAE',                             # Identifiant
+            self._mandatory(code, 17),         # Code
+            self._mandatory(libelle, 35),      # Libelle
+            self._mandatory(nature, 3),        # Nature
+            self._mandatory(lettrable, 1),     # Lettrable
+            self._mandatory(collectif, 17),    # Collectif
+            self._format(ean, 17),             # EAN
+            self._format(table1, 17),          # Table 1
+            self._format(table2, 17),          # Table 2
+            self._format(table3, 17),          # Table 3
+            self._format(table4, 17),          # Table 4
+            self._format(table5, 17),          # Table 5
+            self._format(table6, 17),          # Table 6
+            self._format(table7, 17),          # Table 7
+            self._format(table8, 17),          # Table 8
+            self._format(table9, 17),          # Table 9
+            self._format(table10, 17),         # Table 10
+            self._mandatory(adresse1, 17),     # Adresse 1
+            self._mandatory(adresse2, 17),     # Adresse 2
+            self._format(adresse3, 17),        # Adresse 3
+            self._format(code_postal, 9),      # Code postal
+            self._format(ville, 35),           # Ville
+            self._format(domiciliation, 24),   # Domiciliation (TODO: mandatory ?)
+            self._format(etablissement, 5),    # Etablissement (TODO: mandatory ?)
+            self._format(guichet, 5),          # Guichet (TODO: mandatory ?)
+            self._format(cle, 2),              # Cle (TODO: mandatory ?)
+            self._format(pays, 3),             # Pays (TODO: Pays ?)
+            self._format(libelle_abrege, 17),  # Libelle abrege
+            self._format(langue, 3),           # Langue
+            self._format(multidevise, 1),      # Multi devise
+            self._format(devise_tiers, 3),     # Devise Tiers
+            self._format(telephone, 25),       # Telephone
+            self._format(fax, 25),             # Fax
+            self._format(regime_tva, 3),       # regime TVA (TODO: mandatory ?)
+            self._format(mrg, 3),              # Mode de reglement (TODO: mandatory ?)
+            self._format(comment, 35),         # Commentaire
+            self._format(nif, 17),             # Nif
+            self._format(siret, 17),           # Siret
+            self._format(ape, 5),              # Ape
+            self._format(prenom, 35),          # Prenom
+            self._format(ctc_service, 35),     # Contact service
+            self._format(ctc_fonction, 35),    # Contact fonction
+            self._format(ctc_telephone, 25),   # Contact telephone
+            self._format(ctc_fax, 25),         # Contact fax
+            self._format(ctc_telex, 25),       # Contact Telex
+            self._format(ctc_rva, 50),         # Contact RVA
+            self._format(ctc_civilite, 3),     # Contact civilite
+            self._format(ctc_principal, 1),    # Contact principal
+            self._format(forme_juridique, 3),  # Forme juridique
+            self._format(rib_principal, 1),    # RIB principale
+            self._format(tva_encaissement, 3), # TVA Encaissement
+            self._format(payeur, 17),          # Payeur
+            self._format(ispayeur, 1),         # Tiers payeur
+            self._format(avoir_rbt, 1),        # Avoir remboursement
+            self._format(relance_rgt, 3),      # Relance reglement
+            self._format(relance_traite, 3),   # Relance traite
+            self._format(confidentiel, 1),     # Confidentiel
+        ]))
+
     def addEcriture(self, journal='', date_mouvement=None, type_piece='', compte='', type_compte='',
                           num_compte='', ref_interne='', libelle='', modepaie='', echeance='',
                           sens='', montant1=0.0, type_ecriture='', numero_piece='', devise='',
