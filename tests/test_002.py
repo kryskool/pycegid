@@ -24,6 +24,7 @@
 from pycegid.export import ExportTra, MandatoryException
 import pytest
 
+
 class TestSAT(object):
 
     def test_SAT_mandatory(self):
