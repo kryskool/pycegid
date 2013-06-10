@@ -24,7 +24,7 @@
 from setuptools import Command, setup
 from pycegid import release
 
-import os, sys
+import os
 
 
 class run_audit(Command):
@@ -42,6 +42,7 @@ class run_audit(Command):
         pass
 
     def run(self):
+        import os, sys
         try:
             import pyflakes.scripts.pyflakes as flakes
         except ImportError:
