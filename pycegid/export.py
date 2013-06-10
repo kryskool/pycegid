@@ -144,6 +144,42 @@ class ExportTra(object):
             self._format(sens, 3),             # Sens
         ]))
 
+    def addCGN(self, code='', libelle='', nature='', lettrable='', pointable='',
+                     ventil_axe1='', ventil_axe2='', ventil_axe3='', ventil_axe4='', ventil_axe5='',
+                     table1='', table2='', table3='', table4='', table5='',
+                     table6='', table7='', table8='', table9='', table10=''):
+        """
+        See documentation version 7 page 30/60 which describe "Compte General"
+        """
+        if nature not in ('BQE', 'CAI', 'CHA', 'COC', 'COD', 'COF', 'COS',
+                          'DIV', 'EXT', 'IMO', 'PRO', 'TIC', 'TID'):
+            raise NotValidValue('"%s" value is not valid for "nature" field' % nature)
+
+        self._content['lines'].append(''.join([
+            self._zone_fixe,                   # Prefix (***)
+            'CGN',                             # Identifiant
+            self._mandatory(code, 17),         # Code
+            self._mandatory(libelle, 35),      # Libelle
+            self._mandatory(nature, 3),        # Nature
+            self._mandatory(lettrable, 1),     # Lettrable
+            self._mandatory(pointable, 1),     # Pointable
+            self._mandatory(ventil_axe1, 1),   # Ventilable axe 1
+            self._mandatory(ventil_axe2, 1),   # Ventilable axe 2
+            self._mandatory(ventil_axe3, 1),   # Ventilable axe 3
+            self._mandatory(ventil_axe4, 1),   # Ventilable axe 4
+            self._mandatory(ventil_axe5, 1),   # Ventilable axe 5
+            self._format(table1, 17),          # Table 1
+            self._format(table2, 17),          # Table 2
+            self._format(table3, 17),          # Table 3
+            self._format(table4, 17),          # Table 4
+            self._format(table5, 17),          # Table 5
+            self._format(table6, 17),          # Table 6
+            self._format(table7, 17),          # Table 7
+            self._format(table8, 17),          # Table 8
+            self._format(table9, 17),          # Table 9
+            self._format(table10, 17),         # Table 10
+        ]))
+
     def addCAE(self, code='', libelle='', nature='', lettrable='', collectif='',
                      ean='', table1='', table2='', table3='', table4='', table5='',
                      table6='', table7='', table8='', table9='', table10='',
