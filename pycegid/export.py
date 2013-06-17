@@ -82,8 +82,6 @@ class ExportTra(object):
             'lines': [],
         }
 
-    # TODO: add function to change date for the generate file
-
     def changeFormat(self, version='007'):
         if version not in self._available_version:
             raise VersionNotFound()
@@ -268,6 +266,9 @@ class ExportTra(object):
                           taux_dev='', code_montant='', montant2=0.0, montant3=0.0, etablissement='',
                           axe='', numeche=''):
         """Add move"""
+
+        if type_piece not in ('FC', 'AC', 'RC', 'FF', 'AF', 'RF', 'OD', 'OC', 'OF'):
+            raise NotValidValue('"%" value is not valid for "type_piece" field' % type_piece)
 
         if date_mouvement is None:
             date_mouvement = self._generate_date[:8]
