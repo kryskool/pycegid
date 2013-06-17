@@ -57,7 +57,11 @@ def test_ecriture_normal():
                     code_montant='C')
     assert len(tra._content['lines']) == 1
     content = tra._content['lines'][0]
-    assert content[:3] != '***'  # , 'Bad starting record!'
+    assert content[:3] != '***', 'Bad starting record!'
+    assert content[129:130] in ('C', 'D'), 'Sens must be filled with C or D'
+    assert content[130:150] == '00000000000000000,00'
+    assert content[175:195] == '00000000000000000,00'
+    assert content[195:215] == '00000000000000000,00'
     assert len(content) == 222, 'Ecriture Line in 007 format must containt 222 characters (found %d)' % len(content)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

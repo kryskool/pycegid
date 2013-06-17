@@ -263,7 +263,7 @@ class ExportTra(object):
     def addEcriture(self, journal='', date_mouvement=None, type_piece='', compte='', type_compte='',
                           num_compte='', ref_interne='', libelle='', modepaie='', echeance='',
                           sens='', montant1=0.0, type_ecriture='', numero_piece='', devise='',
-                          taux_dev='', code_montant='', montant2=0.0, montant3=0.0, etablissement='',
+                          taux_dev=1, code_montant='', montant2=0.0, montant3=0.0, etablissement='',
                           axe='', numeche=''):
         """Add move"""
 
@@ -355,8 +355,8 @@ class ExportTra(object):
     def _number(self, value, length, dec=2):
         if value and isinstance(value, (int, str)):
             value = float(value)
-        else:
-            return self._format(value, length)
+        #else:
+        #    return self._format(value, length)
         return (('%.' + str(dec) + 'f') % value).replace('.', ',').rjust(length, '0')
 
     def _mandatory(self, value, length, rpad=False, caract=' '):
