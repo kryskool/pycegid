@@ -347,7 +347,7 @@ class ExportTra(object):
 
     @staticmethod
     def _format(value, length, rpad=False, caract=' '):
-        value = str(value)
+        value = str(value).replace('\r', '').replace('\n', '')
         if rpad:
             return value.rjust(length, caract)[:length]
         return value.ljust(length, caract)[:length]
