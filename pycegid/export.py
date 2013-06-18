@@ -276,7 +276,7 @@ class ExportTra(object):
         if not echeance:
             echeance = self._default_date
 
-        if type_compte not in ('X', 'A', 'H', '0'):
+        if type_compte and type_compte not in ('X', 'A', 'H', '0'):
             raise NotValidValue('"%s" value is not valid for "type de compte" field' % type_compte)
 
         if type_ecriture not in ('N', 'S', 'U', 'R'):
@@ -293,7 +293,7 @@ class ExportTra(object):
             self._mandatory(date_mouvement, 8),  # Date du mouvement
             self._mandatory(type_piece, 2),      # Type de piece
             self._mandatory(compte, 17),         # Compte general
-            self._format(type_piece, 1),         # Type de compte
+            self._format(type_compte, 1),         # Type de compte
             self._format(num_compte, 17),        # numero compte ou section ana
             self._format(ref_interne, 35),       # Reference interne
             self._format(libelle, 35),           # Libelle
