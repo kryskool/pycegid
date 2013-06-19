@@ -58,7 +58,7 @@ class ExportTra(object):
 
     _default_version = '007'
     _default_date = '01011900'
-    _current_date = time.strftime('%Y%m%d%H%M')
+    _current_date = time.strftime('%d%m%Y%H%M')
     _zone_fixe = '***'
 
     _available_version = ['007']
@@ -95,9 +95,9 @@ class ExportTra(object):
 
     def setHeader(self, identifiant='S5', origine='CLI', type_fic='JRL',
                         format_fic='STD', code_ex_clos='', date_bascule=None,
-                        date_arrete=None, num_dossier_cab='00001', utilisateur=None,
+                        date_arrete=None, num_dossier_cab='', utilisateur=None,
                         raison_sociale='', reprise='', num_dossier='',
-                        frequence='', date_purge=None, sous_version=''):
+                        frequence='', date_purge=None, sous_version='001'):
         if utilisateur is None:
             utilisateur = 'pycegid'
 
@@ -355,8 +355,8 @@ class ExportTra(object):
     def _number(self, value, length, dec=2):
         if value and isinstance(value, (int, str)):
             value = float(value)
-        #else:
-        #    return self._format(value, length)
+        # A number are always positive
+        value = abs(value)
         return (('%.' + str(dec) + 'f') % value).replace('.', ',').rjust(length, '0')
 
     def _mandatory(self, value, length, rpad=False, caract=' '):
