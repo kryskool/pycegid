@@ -94,7 +94,7 @@ class ExportTra(object):
         self._debug_header = length
 
     def setHeader(self, identifiant='S5', origine='CLI', type_fic='JRL',
-                        format_fic='STD', code_ex_clos='', date_bascule=None,
+                        format_fic='ETE', code_ex_clos='', date_bascule=None,
                         date_arrete=None, num_dossier_cab='', utilisateur=None,
                         raison_sociale='', reprise='', num_dossier='',
                         frequence='', date_purge=None, sous_version='001'):
