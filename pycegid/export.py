@@ -182,8 +182,8 @@ class ExportTra(object):
                      ean='', table1='', table2='', table3='', table4='', table5='',
                      table6='', table7='', table8='', table9='', table10='',
                      adresse1='', adresse2='', adresse3='', code_postal='', ville='',
-                     domiciliation='', etablissement='', guichet='', cle='', pays='',
-                     libelle_abrege='', langue='', multidevise='', devise_tiers='-',
+                     domiciliation='', etablissement='', guichet='', compte='', cle='', pays='',
+                     libelle_abrege='', langue='', multidevise='', devise_tiers='',
                      telephone='', fax='', regime_tva='', mrg='', comment='', nif='',
                      siret='', ape='', prenom='', ctc_service='', ctc_fonction='',
                      ctc_telephone='', ctc_fax='', ctc_telex='', ctc_rva='',
@@ -198,6 +198,9 @@ class ExportTra(object):
 
         if ispayeur and ispayeur not in ('X', '-'):
             raise NotValidValue('"%s" value is not valid for "ispayeur" field' % ispayeur)
+
+        if devise_tiers and devise_tiers not in ('X', '-'):
+            raise NotValidValue('"%s" value is not valid for "devise_tiers" field' % devise_tiers)
 
         self._content['lines'].append(''.join([
             self._zone_fixe,                   # Prefix (***)
@@ -226,6 +229,7 @@ class ExportTra(object):
             self._format(domiciliation, 24),   # Domiciliation (TODO: mandatory ?)
             self._format(etablissement, 5),    # Etablissement (TODO: mandatory ?)
             self._format(guichet, 5),          # Guichet (TODO: mandatory ?)
+            self._format(compte, 11),          # Compte
             self._format(cle, 2),              # Cle (TODO: mandatory ?)
             self._format(pays, 3),             # Pays (TODO: Pays ?)
             self._format(libelle_abrege, 17),  # Libelle abrege
