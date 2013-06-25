@@ -218,9 +218,9 @@ class ExportTra(object):
             self._format(table8, 17),          # Table 8
             self._format(table9, 17),          # Table 9
             self._format(table10, 17),         # Table 10
-            self._mandatory(adresse1, 17),     # Adresse 1
-            self._mandatory(adresse2, 17),     # Adresse 2
-            self._format(adresse3, 17),        # Adresse 3
+            self._mandatory(adresse1, 35),     # Adresse 1
+            self._mandatory(adresse2, 35),     # Adresse 2
+            self._format(adresse3, 35),        # Adresse 3
             self._format(code_postal, 9),      # Code postal
             self._format(ville, 35),           # Ville
             self._format(domiciliation, 24),   # Domiciliation (TODO: mandatory ?)
