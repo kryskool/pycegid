@@ -22,6 +22,8 @@
 ##############################################################################
 
 from pycegid.export import ExportTra, MandatoryException
+from pycegid.tools import position
+import time
 import pytest
 
 class TestExport1(object):
@@ -71,12 +73,17 @@ class TestExport1(object):
 
     def test_header(self):
         tra = ExportTra()
-        tra.setHeader('S5', 'CLI', 'JRL')
+        tra.setHeader('S5', 'CLI', 'JRL', num_dossier='B105ZZ')
         content = tra.render()
-        assert content[:3] == '***', 'Bad starting record!'
-        assert content[3:5] == 'S5', 'Bad identifiant!'
-        assert content[17:25] == '01011900', 'Default date for "Date Bacule" not found!'
-        assert content[25:33] == '01011900', 'Default date for "Date arrete periodique" not found!'
-        #assert len(content) == 148, 'Record length not valid (%d)' % len(content)
+        assert position(content, 1, 3) == '***', 'Bad starting record!'
+        assert position(content, 4, 2) == 'S5', 'Bad identifiant!'
+        assert position(content, 18, 8) == '01011900', 'Default date for "Date Bacule" not found!'
+        assert position(content, 26, 8) == '01011900', 'Default date for "Date arrete periodique" not found!'
+        assert position(content, 34, 3) == '007'
+        assert position(content, 37, 5) == '     '
+        assert position(content, 42, 8) == time.strftime('%d%m%Y')
+        assert position(content, 128, 6) == 'B105ZZ'
+        assert position(content, 145, 3) == '001'
+        assert len(content.replace('\r\n', '')) == 147, 'Record length not valid (%d)' % len(content)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

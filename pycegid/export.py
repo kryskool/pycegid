@@ -268,7 +268,8 @@ class ExportTra(object):
                           num_compte='', ref_interne='', libelle='', modepaie='', echeance='',
                           sens='', montant1=0.0, type_ecriture='', numero_piece='', devise='',
                           taux_dev=1, code_montant='', montant2=0.0, montant3=0.0, etablissement='',
-                          axe='', numeche=''):
+                          axe='', numeche='', ref_externe='', date_ref_externe=None, date_creation=None,
+                          code_societe='', code_affaire=''):
         """Add move"""
 
         if type_piece not in ('FC', 'AC', 'RC', 'FF', 'AF', 'RF', 'OD', 'OC', 'OF'):
@@ -276,6 +277,12 @@ class ExportTra(object):
 
         if date_mouvement is None:
             date_mouvement = self._generate_date[:8]
+
+        if date_ref_externe is None:
+            date_ref_externe = self._default_date
+
+        if date_creation is None:
+            date_creation = self._generate_date[:8]
 
         if not echeance:
             echeance = self._default_date
@@ -315,6 +322,12 @@ class ExportTra(object):
             self._format(etablissement, 3),      # Etablissement
             self._format(axe, 2),                # Axe si type compte = 'A'
             self._format(numeche, 2),            # Multi echeance
+            self._format(ref_externe, 35),       # Reference externe
+            self._format(date_ref_externe, 8),   # Date reference externe
+            self._format(date_creation, 8),      # Date de creation
+            self._format(code_societe, 3),       # Code société
+            self._format(code_affaire, 17),      # Code affaire
+            # Missing other field, not use yet
         ]))
 
     def render(self, filename=''):
