@@ -1,0 +1,53 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2013, Christophe CHAUVET
+# This file is distributed under the same license as the Python Cegid package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-07-03 12:27\n"
+"PO-Revision-Date: 2013-06-21 08:36+0100\n"
+"Last-Translator: \n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Translate Toolkit 1.5.3\n"
+
+# 3279f7a2c79f41a88b8362b85b1ef3a4
+#: ../../source/index.rst:7
+msgid "Welcome to Python Cegid's documentation!"
+msgstr "Bienvenu dans la documentation python Cegid!"
+
+# 6dda6c5f1f6540fcaa4ac9bc259d193e
+#: ../../source/index.rst:9
+msgid "PyCegid is a library to generate file in TRA format, to import datas in Cegid (French Accounting Software)"
+msgstr ""
+"PyCegid est une biliothèque pour générer les fichier au format TRA, pour les "
+"importés dans Gecid"
+
+# 291553bd78c94f3f983a81963daa17a4
+#: ../../source/index.rst:11
+msgid "Contents:"
+msgstr "Contenus:"
+
+# 55409bdb90d34883aa8c2f3db05ca89a
+#: ../../source/index.rst:21
+msgid "Indices and tables"
+msgstr "Annexes et tableaux"
+
+# 614d02199b8446a68dfde087dfbef7de
+#: ../../source/index.rst:23
+msgid ":ref:`genindex`"
+msgstr ":ref:`genindex`"
+
+# 0b7e6adbb2df41c0a6db3243fc876b9a
+#: ../../source/index.rst:24
+msgid ":ref:`modindex`"
+msgstr ":ref:`modindex`"
+
+# ccac071f2e1b48ce9f0f1fdd2b6a549f
+#: ../../source/index.rst:25
+msgid ":ref:`search`"
+msgstr ":ref:`search`"

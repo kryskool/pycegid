@@ -6,12 +6,14 @@
 Welcome to Python Cegid's documentation!
 ========================================
 
-PyCegid is a library to generate format in DAT format, to import datas in Cegid (French Accounting Software)
+PyCegid is a library to generate file in TRA format, to import datas in Cegid (French Accounting Software)
 
 Contents:
 
 .. toctree::
    :maxdepth: 2
+
+   descriptif.rst
 
 
 
